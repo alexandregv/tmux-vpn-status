@@ -64,7 +64,12 @@ main() {
   fi
 
   # VPN active connectons
-  TMUX_VPN_STATUS+="#[fg=colour250]#[fg=${3}]#[fg=${text_color}]$($cmd 2>/dev/null)"
+  CMD_OUTPUT="$($cmd 2>/dev/null)"
+  if [ -z "${CMD_OUTPUT}"]; then
+    TMUX_VPN_STATUS=""
+  else
+    TMUX_VPN_STATUS+="#[fg=colour250]#[fg=${3}]#[fg=${text_color}]${CMD_OUTPUT}"
+  fi
 
   echo "${TMUX_VPN_STATUS}"
 }
